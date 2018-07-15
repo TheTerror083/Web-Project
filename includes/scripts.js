@@ -1,45 +1,51 @@
-window.onload = function(){ 
-    // your code 
+/**
+ * @author Serj Romashkin
+ */
 
-// flyMenu toggle
-var myBtn = document.getElementById("cpBtn");
- 
-myBtn.onclick = function toggleCP(){
-	var cp = document.getElementById("cp");
-	cp.style.display = cp.style.display === 'block' ? 'none' : 'block';
+window.onload = function(){
+	var init = new populatePage();
+};
+
+function populatePage() {
+	
+	var imgs = 3;
+	var i;
+
+	for (i=0; i<imgs; i++)
+	{
+		var pic = new addPic(i,imgs);
+	};
+};
+
+function addPic () {
+  console.log ("add a Pic");
+  var aside = document.getElementsByClassName("content");
+  for (var i = 0, len = aside.length; i < len; i++) {
+    var pic = document.createElement("div");
+  	var color = "#e8e8e8";
+  	pic.setAttribute("id", "pic"+arguments[0]);
+	pic.style.height = "100%";
+	pic.style.width	="200px";
+	pic.style.display = "inline-block";
+	pic.style.float = "left";
+	pic.style.background = color;
+	pic.style.border= "1px solid black";
+	pic.style.position= "relative";
+	pic.style.margin= "5px";
+	var img = document.createElement("img");
+	img.setAttribute("src", "images/deal.jpg");
+    img.setAttribute("width", "200px");
+    img.setAttribute("height", "100%");
+    img.setAttribute("alt", "Sale");
+	
+	
+	pic.appendChild(img);
+	aside[i].appendChild(pic);	
+
+}
+  
+	console.log ("Pic added"+arguments[0]);
 };
 
 
-// modal:
-// Get the modal
-var modal = document.getElementById("myModal");
-
-// Get the button that opens the modal
-var btn = document.getElementsByClassName("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementById("close");
-
-// When the user clicks the button, open the modal 
-var i;
-for (i = 0; i < btn.length; i++) {
-	if (btn[i] !== null){
-    btn[i].onclick = function() {
-    modal.style.display = "block";
-};};
-};
-
-
-// When the user clicks on <span> (x), close the modal
-if (span !== null){
-span.onclick = function() {
-    modal.style.display = "none";
-};};
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    };
-};};
 

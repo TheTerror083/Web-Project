@@ -1,8 +1,12 @@
 <?php
 	include('session.php');
-	$sql = "SELECT * FROM tbl_event_225_STEAL WHERE id = '$id_session' ";
-	$events_result = mysqli_query($con,$sql);
-	$count = mysqli_num_rows($events_result);
+	
+	$game_ids= explode(',', $user_games_session);			
+   	foreach ($game_ids as $value) {
+		$sql = "SELECT * FROM tb_games_225_STEAL WHERE game_id = '$value' ";
+		$events_result = mysqli_query($con,$sql);
+		$count = mysqli_num_rows($events_result);
+	  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +28,7 @@
                <h1>My Events</h1>
                <article>
                    <section id="myEvents">
-                   	<input type="text" value="<?php echo $login_session; ?>"
+                   	<?php  ?>
 					<table class="tg">
 							<?php
 								if ($count > 0){
@@ -37,12 +41,19 @@
 						    			<th class='tg-2bn0'>Shopping List</th>
 						  			  </tr>";
 						  	
+							
 						  			while($row = $events_result->fetch_assoc()) {
 						  				echo "<tr>";
-										echo "<td class='tg-2bn0'>".$row['type']."</td>";
-										echo "<td class='tg-2bn0'>".$row['guests']."</td>";
-										echo "<td class='tg-2bn0'>".$row['location']."</td>";
-										echo "<td class='tg-2bn0'>".$row['date']."</td>";
+										echo "<td class='tg-2bn0'>".$row['title']."</td>";
+										echo "<td class='tg-2bn0'><img src='data/profiles/".$row['boxArt']."'></td>";
+										echo "<td class='tg-2bn0'>".$row['genre']."</td>";
+										if($user_type == "Admin" || $user_type == "Dev")
+										{
+											if($id_session == $row['dev_id'])
+											{
+												echo "<td class='tg-2bn0'>".$row['tags']."</td>";
+											}
+										}
 										echo "<td class='tg-2bn0'><button class='myBtn'><img src='images/shop.png'></img></button></td></td>";
 										echo "</tr>";
 								}//end loop
